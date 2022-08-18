@@ -2,13 +2,13 @@ import { useForm } from "react-hook-form"
 import * as yup from 'yup'; 
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Absolute, Formulario, Header } from "./style";
-import axios from "axios";
 import { useNavigate } from "react-router-dom"
-import PopUpSucesso from "../../components/PopUpSucesso";
+import { useContext } from "react";
 import { motion } from "framer-motion"
 import PopUpFalha from "../../components/PopUpFalha";
+import { BaseContext } from "../../Providers/BaseContext";
 
-function Register({registro, setRegistro, setLogado}){
+function Register(){
     const formSchema = yup.object().shape({
         email: yup.string().required("E-mail obrigatório").email("E-mail inválido"),
         name: yup.string().required("Nome obrigatório"),
@@ -22,18 +22,11 @@ function Register({registro, setRegistro, setLogado}){
     })
     const {register, handleSubmit, formState: {errors} } = useForm({
         resolver: yupResolver(formSchema)
-    })
+    })   
+
+    const {registro, onSubmitFunction} = useContext(BaseContext)
 
     const navigate = useNavigate()
-
-    function onSubmitFunction(user){
-        axios.post('https://kenziehub.herokuapp.com/users', user)
-        .then(res => {
-            navigate("/", {replace: true})
-            setRegistro(true)
-        })
-        .catch(err => setRegistro(false))
-    }
 
     function conferirRegistro(){
         if(registro === false){
@@ -45,7 +38,7 @@ function Register({registro, setRegistro, setLogado}){
             exit={{opacity: 0}}
             transition={{duration: 1}}
         >
-        <PopUpFalha setRegistro={setRegistro} setLogado={setLogado}></PopUpFalha>
+        <PopUpFalha></PopUpFalha>
         </motion.div>
         </Absolute>
             )
