@@ -1,29 +1,19 @@
 import { useForm } from "react-hook-form";
 import { Absolute, Container, FormularioLogin } from "./style";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import PopUpFalha from "../../components/PopUpFalha";
 import { motion } from "framer-motion";
 import PopUpSucesso from "../../components/PopUpSucesso";
+import { useContext } from "react";
+import { BaseContext } from "../../Providers/BaseContext";
 
-function Login({setLoading, setUser, setRegistro, setLogado, registro, logado}){
+function Login(){
 
     const {register, handleSubmit} = useForm()
 
-    function onSubmitFunction(data){
-        axios.post('https://kenziehub.herokuapp.com/sessions', data)
-        .then((res) => {
-            setUser(res.data.user)
-            setLoading(false)
-            navigate("/dashboard", {replace: true})
-            window.localStorage.clear()
-            window.localStorage.setItem("@KenzieHub-Token", res.data.token)
-            window.localStorage.setItem("@KenzieHub-UserId", res.data.user.id)
-            setLogado(true)
-        })
-        .catch(err => setLogado(false))
-        
-    }
+    const {registro, logado, onLoginFunction, user} = useContext(BaseContext)
+
+    
 
     const navigate = useNavigate()
 
@@ -37,7 +27,7 @@ function Login({setLoading, setUser, setRegistro, setLogado, registro, logado}){
             exit={{opacity: 0}}
             transition={{duration: 1}}
             >
-                <PopUpSucesso setRegistro={setRegistro} setLogado={setLogado}/>
+                <PopUpSucesso/>
             </motion.div>
         </Absolute>
             )
@@ -51,7 +41,7 @@ function Login({setLoading, setUser, setRegistro, setLogado, registro, logado}){
             exit={{opacity: 0}}
             transition={{duration: 1}}
             >
-                <PopUpFalha setRegistro={setRegistro} setLogado={setLogado}/>
+                <PopUpFalha/>
             </motion.div>
         </Absolute>
             )
@@ -59,10 +49,14 @@ function Login({setLoading, setUser, setRegistro, setLogado, registro, logado}){
     }
 
     return(
+
         <Container>
-        
        {
          conferirLogin()
+       }
+       {
+        user ? <Navigate to={"/dashboard"}></Navigate>
+        : <></>
        }
         <svg className="kenziehub" width="145" height="21" viewBox="0 0 145 21" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M0 20.0292H3.94012V14.7333L5.87833 12.3674L10.9832 20.0292H15.6968L8.6992 9.73758L15.6149 1.39326H10.8922L4.18581 9.61019H3.94012V1.39326H0V20.0292Z" fill="#FF577F"/>
@@ -78,7 +72,7 @@ function Login({setLoading, setUser, setRegistro, setLogado, registro, logado}){
 
         <FormularioLogin>
             <h1>Login</h1>
-            <form onSubmit={handleSubmit(onSubmitFunction)}>
+            <form onSubmit={handleSubmit(onLoginFunction)}>
                 <label>Email</label>
                 <input type={'email'} placeholder='Insira seu E-mail' {...register("email")}></input>
                 <label>Senha </label>
