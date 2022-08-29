@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Modal = styled.div`
     background-color: rgb(0, 0, 0, 0.5);

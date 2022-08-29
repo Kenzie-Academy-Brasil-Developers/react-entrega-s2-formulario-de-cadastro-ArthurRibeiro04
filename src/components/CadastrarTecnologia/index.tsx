@@ -3,19 +3,20 @@ import { TechsContext } from "../../Providers/TechsContext"
 import { Modal } from "./style"
 import { useForm } from "react-hook-form"
 
+
+
 function CadastrarTecnologia(){
 
-    const {cTech, setCTech, onSubmitFunction} = useContext(TechsContext)
+    const {setCTech, onSubmitFunction} = useContext(TechsContext)
 
     const {register, handleSubmit} = useForm()
 
     return(
-        cTech &&
         <Modal>
             <div>
                 <h1>Cadastrar Tecnologia</h1>
                 <button className="fechar" onClick={() => setCTech(false)}>X</button>
-                <form onSubmit={handleSubmit(onSubmitFunction)}>
+                <form onSubmit={handleSubmit(onSubmitFunction as () => void)}>
                     <label>Nome</label>
                     <input type={"text"} {...register("title")}></input>
                     <label>Selecionar Status</label>

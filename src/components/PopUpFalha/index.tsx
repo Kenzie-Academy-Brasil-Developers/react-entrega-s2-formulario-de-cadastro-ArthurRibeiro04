@@ -14,8 +14,8 @@ function PopUpFalha(){
 </svg>
             <p>Ops! Algo deu errado</p>
             <button onClick={() =>{
-                setRegistro()
-                setLogado()
+                setRegistro(undefined)
+                setLogado(undefined)
             }}>X</button>
         </PopUp>
     )

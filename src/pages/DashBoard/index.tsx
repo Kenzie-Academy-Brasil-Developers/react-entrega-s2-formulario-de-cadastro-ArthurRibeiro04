@@ -14,7 +14,7 @@ import EditarTecnologia from "../../components/EditarTech";
 
     const {user, logado, Logout} = useContext(BaseContext)
 
-    const {setCTech, techs, setETech, setPlaceTitle, setPlaceSelect, setTechId} = useContext(TechsContext)
+    const {eTech ,cTech, setCTech, techs, setETech, setPlaceTitle, setPlaceSelect, setTechId} = useContext(TechsContext)
 
     function conferirLogin(){
         if(logado === true){
@@ -35,9 +35,13 @@ import EditarTecnologia from "../../components/EditarTech";
 
     return(
         <>
+        {
+            cTech && <CadastrarTecnologia></CadastrarTecnologia>
+        }
+        {
+            eTech &&  <EditarTecnologia></EditarTecnologia>
+        }
        
-        <CadastrarTecnologia></CadastrarTecnologia>
-        <EditarTecnologia></EditarTecnologia>
         {
             conferirLogin()
         }

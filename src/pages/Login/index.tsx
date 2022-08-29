@@ -72,7 +72,7 @@ function Login(){
 
         <FormularioLogin>
             <h1>Login</h1>
-            <form onSubmit={handleSubmit(onLoginFunction)}>
+            <form onSubmit={handleSubmit(onLoginFunction as () => void)}>
                 <label>Email</label>
                 <input type={'email'} placeholder='Insira seu E-mail' {...register("email")}></input>
                 <label>Senha </label>

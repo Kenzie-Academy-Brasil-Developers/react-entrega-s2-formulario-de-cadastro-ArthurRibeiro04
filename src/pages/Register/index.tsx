@@ -67,24 +67,24 @@ function Register(){
         <Formulario>
         <h1>Crie sua conta</h1>
         <p>Rápido e grátis, vamos nessa</p>
-        <form onSubmit={handleSubmit(onSubmitFunction)}>
+        <form onSubmit={handleSubmit(onSubmitFunction as () => void)}>
             <label>Nome</label>
             <input placeholder="Digite aqui seu nome" type={'text'} {...register("name")}></input>
-            <span>{errors.name?.message}</span>
+            <span>{errors.name?.message as string | undefined}</span>
             <label>Email</label>
             <input placeholder="Digite aqui seu email" type={'email'} {...register("email")}></input>
-            <span>{errors.email?.message}</span>
+            <span>{errors.email?.message as string | undefined}</span>
             <label>Senha</label>
             <input placeholder="Digite aqui sua senha" type={'password'} {...register("password")}></input>
-            <span>{errors.password?.message}</span>
+            <span>{errors.password?.message as string | undefined}</span>
             <label>Confirmar Senha</label>
             <input placeholder="Digite novamente sua senha" type={'password'} {...register("confirmPassword")}></input>
-            <span>{errors.confirmPassword?.message}</span>
+            <span>{errors.confirmPassword?.message as string | undefined}</span>
             <label>Bio</label>
             <input placeholder="Fale sobre voce" type={'text'} {...register("bio")}></input>
             <label>Contato</label>
             <input placeholder="Opçao de contato" type={'text'} {...register("contact")}></input>
-            <span>{errors.contact?.message}</span>
+            <span>{errors.contact?.message as string | undefined}</span>
             <label>Selecionar módulo</label>
             <select {...register("course_module")}>
                 <option>Primeiro módulo (Introdução ao Frontend)</option>

@@ -1,20 +1,71 @@
 import { createContext, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, ReactNode, SetStateAction} from "react";
 
-export const BaseContext = createContext({});
+interface ProviderProps{
+    children: ReactNode
+}
 
-export const BaseProvider = ({ children }) => {
+interface ITech{
+    title: string,
+    status: string,
+}
+
+interface IUser{
+    id: string,
+    name: string,
+    email: string,
+    course_module: string,
+    bio: string,
+    contact: string,
+    created_at: string,
+    updated_at: string,
+    techs: ITech[],
+    works: [],
+    avatar_url: null
+}
+
+interface ILogin{
+    email: string,
+    password: string,
+}
+
+interface IRegister{
+    email: string,
+    password: string,
+    name: string,
+    bio: string,
+    contac: string,
+    course_module: string,
+}
+
+interface baseProviderData{
+    loading: boolean,
+    setLoading: React.Dispatch<SetStateAction<boolean>>,
+    user?: IUser,
+    setUser: React.Dispatch<SetStateAction<IUser | undefined>>
+    registro?: boolean,
+    setRegistro: React.Dispatch<SetStateAction<boolean | undefined>>,
+    logado?: boolean,
+    setLogado: React.Dispatch<SetStateAction<boolean | undefined>>
+    onSubmitFunction: (user: IRegister) => void,
+    onLoginFunction: (data: ILogin) => void,
+    Logout: () => void
+}
+
+export const BaseContext = createContext<baseProviderData>({} as baseProviderData);
+
+export const BaseProvider = ({ children }: ProviderProps) => {
 
     const navigate = useNavigate()
 
-    const [loading, setLoading] = useState(true)
-    const [user, setUser] = useState()
-    const [registro, setRegistro] = useState()
-    const [logado, setLogado] = useState()
+    const [loading, setLoading] = useState<boolean>(true)
+    const [user, setUser] = useState<IUser | undefined>()
+    const [registro, setRegistro] = useState<boolean>()
+    const [logado, setLogado] = useState<boolean>()
 
-    function onSubmitFunction(user){
+    function onSubmitFunction(user: IRegister){
         axios.post('https://kenziehub.herokuapp.com/users', user)
         .then(res => {
             navigate("/", {replace: true})
@@ -23,7 +74,7 @@ export const BaseProvider = ({ children }) => {
         .catch(err => setRegistro(false))
     }
 
-    function onLoginFunction(data){
+    function onLoginFunction(data: ILogin){
         axios.post('https://kenziehub.herokuapp.com/sessions', data)
         .then((res) => {
             setUser(res.data.user)
@@ -38,7 +89,7 @@ export const BaseProvider = ({ children }) => {
     }
 
     function Logout(){
-        setUser()
+        setUser(undefined)
         window.localStorage.clear()
         navigate("/", {replace: true})
         

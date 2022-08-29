@@ -14,8 +14,8 @@ function PopUpLoginSucesso(){
 </svg>
             <p>Logado com sucesso!</p>
             <button onClick={() =>{
-                setRegistro()
-                setLogado()
+                setRegistro(undefined)
+                setLogado(undefined)
             }}>X</button>
         </PopUp>
     )

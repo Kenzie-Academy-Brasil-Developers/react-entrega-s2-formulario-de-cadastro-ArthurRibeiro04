@@ -14,8 +14,8 @@ function PopUpSucesso(){
 </svg>
             <p>Conta criada com sucesso!</p>
             <button onClick={() =>{
-                setRegistro()
-                setLogado()
+                setRegistro(undefined)
+                setLogado(undefined)
             }}>X</button>
         </PopUp>
     )

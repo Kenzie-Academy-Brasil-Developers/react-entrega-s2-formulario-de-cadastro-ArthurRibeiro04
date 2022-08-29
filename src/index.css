@@ -1,10 +1,4 @@
-::-webkit-scrollbar{
-  background-color: #121214;
-}
-
 body {
-  overflow-x: hidden;
-  overflow-y: auto;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',

@@ -1,7 +1,12 @@
 import { BaseProvider } from "./BaseContext";
 import { TechsProvider } from "./TechsContext";
+import { ReactNode } from 'react'
 
-export const Provider = ({children}) => {
+interface ProviderProps{
+    children: ReactNode
+}
+
+export const Provider = ({children}: ProviderProps) => {
     return(
         <TechsProvider>
             <BaseProvider>
